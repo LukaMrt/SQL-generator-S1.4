@@ -16,5 +16,5 @@ class Student:
         self.social_number = social_number
 
     def __str__(self):
-        return "INSERT INTO ETUDIANT VALUES ({}, '{}', '{}', '{}', '{}');\n".format(self.id, self.name, self.birth,
-                                                                                  self.address, self.social_number)
+        return "INSERT INTO ETUDIANT VALUES ({}, '{}', {}, '{}', '{}');" \
+            .format(self.id, self.name, self.birth, self.address, self.social_number)

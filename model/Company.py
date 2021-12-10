@@ -1,4 +1,3 @@
-
 class Company:
     id = 0
 
@@ -10,4 +9,5 @@ class Company:
         self.phone = phone
 
     def __str__(self):
-        return "Company: " + str(self.id) + " " + self.name + " " + self.address + " " + self.phone
+        return "INSERT INTO ENTREPRISE VALUES ({}, '{}', '{}', '{}');" \
+            .format(self.id, self.name, self.address, self.phone)

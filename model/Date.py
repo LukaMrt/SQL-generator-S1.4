@@ -22,4 +22,6 @@ class Date:
         return not self.is_before(other)
 
     def __str__(self):
-        return "{}/{}/{}".format(self.year, self.month, self.day)
+        return "TO_DATE('{}/{}/{}', 'DD/MM/YYYY')" \
+            .format(self.day if self.day > 9 else '0' + str(self.day),
+                    self.month if self.month > 9 else '0' + str(self.month), self.year)
