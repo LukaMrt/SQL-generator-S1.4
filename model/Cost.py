@@ -2,11 +2,9 @@ from model.Date import Date
 
 
 class Cost:
-    id = 0
 
-    def __init__(self, study, student, date, type, amount):
-        self.id = Cost.id
-        Cost.id += 1
+    def __init__(self, id, study, student, date, type, amount):
+        self.id = id
         self.payment = None
         self.study = study
         self.student = student

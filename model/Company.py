@@ -1,12 +1,20 @@
 class Company:
-    id = 0
 
-    def __init__(self, name, address, phone):
-        self.id = Company.id
-        Company.id += 1
+    def __init__(self, id, name, address, phone):
+        self.id = id
         self.name = name
         self.address = address
-        self.phone = phone
+
+        self.phone = str(phone % 100)
+        phone //= 100
+        self.phone = str(phone % 100) + "." + self.phone
+        phone //= 100
+        self.phone = str(phone % 100) + "." + self.phone
+        phone //= 100
+        self.phone = str(phone % 100) + "." + self.phone
+        phone //= 100
+        self.phone = "0" + str(phone % 10) + "." + self.phone
+
 
     def to_sql(self) -> str:
         return "INSERT INTO ENTREPRISE VALUES ({}, '{}', '{}', '{}');" \

@@ -39,32 +39,44 @@ def fill_database(file_name):
     indemnities = []
     bills = []
 
+    student_id = 0
+    company_id = 0
+    study_id = 0
+    cost_id = 0
+    cost_payment_id = 0
+    advance_id = 0
+    indemnity_id = 0
+    bill_id = 0
+
     # Create students
-    for _ in range(randint(40, 100)):
-        students.append(Student(fake.last_name(), fake.date(pattern="%d/%m"), fake.street_address(),
-                                randint(1, 2) * 1000000000000 + randint(10, 90) * 100000000000 +
+    for _ in range(randint(20, 50)):
+        students.append(Student(student_id, fake.last_name(), fake.date(pattern="%d/%m"), fake.street_address(),
+                                randint(1, 2) * 1000000000000 + randint(10, 90) * 10000000000 +
                                 randint(1000000000, 9999999999)))
+        student_id += 1
 
     # Create companies
-    for _ in range(randint(10, 30)):
-        companies.append(Company(fake.word(), fake.street_address(), fake.phone_number()))
+    for _ in range(randint(5, 15)):
+        companies.append(Company(company_id, fake.word(), fake.street_address(), randint(600000000, 799999999)))
+        company_id += 1
 
     # Create studies
-    for _ in range(randint(10, 50)):
+    for _ in range(randint(5, 20)):
         studies.append(
-            Study(fake.word(), fake.date(pattern="%d/%m"), randint(1, 6), randint(100, 400), randint(10, 50),
+            Study(study_id, fake.word(), fake.date(pattern="%d/%m"), randint(1, 6), randint(100, 400), randint(10, 50),
                   float(randint(10, 30)) / 100.0))
+        study_id += 1
 
         companies_copy = companies.copy()
         shuffle(companies_copy)
         pop_company = companies_copy.pop()
         studies[-1].company = pop_company.id
 
+        students_copy = students.copy()
+        shuffle(students_copy)
         # Create participations
-        for _ in range(randint(2, studies[-1].company_price // studies[-1].student_price) - 1):
+        for _ in range(randint(2, studies[-1].company_price // studies[-1].student_price) // 3):
 
-            students_copy = students.copy()
-            shuffle(students_copy)
             pop = students_copy.pop()
 
             if studies[-1].in_charge == -1:
@@ -81,37 +93,43 @@ def fill_database(file_name):
             # Create costs
             temp_costs = []
             last_month = start.month
-            for _ in range(randint(1, 10)):
+            for _ in range(randint(1, 5)):
                 start_time += randint(86400, 86400 * 15 * studies[-1].duration)
                 if start_time > end_time:
                     break
 
                 if last_month != datetime.fromtimestamp(start_time).month and len(temp_costs) > 0:
-                    costs_payments.append(Payment(datetime.fromtimestamp(start_time)))
+                    costs_payments.append(Payment(cost_payment_id, datetime.fromtimestamp(start_time)))
+                    cost_payment_id += 1
                     for cost in temp_costs:
                         cost.payment = costs_payments[-1].id
                     temp_costs = []
                     last_month = datetime.fromtimestamp(start_time).month
 
-                cost = Cost(studies[-1].id, pop.id, datetime.fromtimestamp(start_time),
+                cost = Cost(cost_id, studies[-1].id, pop.id, datetime.fromtimestamp(start_time),
                             cost_types[randint(0, len(cost_types) - 1)], randint(300, 10000) / 100.0)
+                cost_id += 1
                 costs.append(cost)
                 temp_costs.append(cost)
 
             end.__add__(timedelta(days=randint(1, 10)))
-            costs_payments.append(Payment(end))
+            costs_payments.append(Payment(cost_payment_id, end))
+            cost_payment_id += 1
             for cost in temp_costs:
                 cost.payment = costs_payments[-1].id
 
             if end < datetime.now() and randint(0, 10) > 2:
-                indemnities.append(Indemnity(studies[-1].id, pop.id, end))
-                bills.append(Bill(pop_company.id, studies[-1].id, end))
+                indemnities.append(Indemnity(indemnity_id, studies[-1].id, pop.id, end))
+                indemnity_id += 1
+                bills.append(Bill(bill_id, pop_company.id, studies[-1].id, end))
+                bill_id += 1
 
             # Create advances
             advances_count = randint(0, 3)
             for _ in range(advances_count):
                 max_advance = (studies[-1].student_price * participations[-1].duration) // advances_count
-                advances.append(Advance(pop.id, studies[-1].id, randint(1, max_advance)))
+                advances.append(Advance(advance_id, pop.id, studies[-1].id, randint(1, max_advance)))
+                advance_id += 1
 
     for student in students:
         file.write(student.to_sql() + "\n")

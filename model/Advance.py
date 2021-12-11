@@ -1,9 +1,7 @@
 class Advance:
-    id = 0
 
-    def __init__(self, student, study, amount):
-        self.id = Advance.id
-        Advance.id += 1
+    def __init__(self, id, student, study, amount):
+        self.id = id
         self.student = student
         self.study = study
         self.amount = amount

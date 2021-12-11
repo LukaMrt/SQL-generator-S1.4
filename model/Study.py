@@ -4,11 +4,9 @@ from model.Date import Date
 
 
 class Study:
-    id = 0
 
-    def __init__(self, name, date, duration, company_price, student_price, detention):
-        self.id = Study.id
-        Study.id += 1
+    def __init__(self, id, name, date, duration, company_price, student_price, detention):
+        self.id = id
         self.name = name
         date = date.split("/")
         self.date = Date(int(date[0]), int(date[1]), 2022 - randint(0, 5))
