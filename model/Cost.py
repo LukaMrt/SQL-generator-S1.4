@@ -14,7 +14,7 @@ class Cost:
         self.type = type
         self.amount = amount
 
-    def __str__(self):
+    def to_sql(self) -> str:
         return "INSERT INTO FRAIS VALUES ({}, {}, {}, {}, {}, '{}', {});" \
-            .format(self.id, self.payment if self.payment is not None else 'NULL', self.study, self.student, self.date,
+            .format(self.id, self.payment if self.payment is not None else 'NULL', self.study, self.student, self.date.to_sql(),
                     self.type, self.amount)

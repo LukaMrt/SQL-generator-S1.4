@@ -8,6 +8,6 @@ class Company:
         self.address = address
         self.phone = phone
 
-    def __str__(self):
+    def to_sql(self) -> str:
         return "INSERT INTO ENTREPRISE VALUES ({}, '{}', '{}', '{}');" \
             .format(self.id, self.name, self.address, self.phone)

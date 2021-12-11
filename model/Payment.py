@@ -7,8 +7,8 @@ class Payment:
     def __init__(self, date):
         self.id = Payment.id
         Payment.id += 1
-        self.date = Date(date.day, date.month, date.year)
+        self.date = Date(1, date.month, date.year)
 
-    def __str__(self):
+    def to_sql(self) -> str:
         return "INSERT INTO REMBOURSEMENT_FRAIS VALUES ({}, {});" \
-            .format(self.id, self.date)
+            .format(self.id, self.date.to_sql())
