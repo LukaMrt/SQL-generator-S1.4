@@ -7,5 +7,5 @@ class Advance:
         self.amount = amount
 
     def to_sql(self) -> str:
-        return "INSERT INTO ACOMPTE VALUES ({}, {}, {}, {});" \
-            .format(self.id, self.student, self.study, self.amount)
+        return "INSERT INTO ACOMPTE (NUMERO_ETUDIANT, NUMERO_ETUDE, VALEUR_ACOMPTE) VALUES ({}, {}, {});" \
+            .format(self.student, self.study, self.amount)

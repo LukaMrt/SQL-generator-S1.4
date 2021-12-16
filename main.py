@@ -39,31 +39,31 @@ def fill_database(file_name):
     indemnities = []
     bills = []
 
-    student_id = 0
-    company_id = 0
-    study_id = 0
-    cost_id = 0
-    cost_payment_id = 0
-    advance_id = 0
-    indemnity_id = 0
-    bill_id = 0
+    student_id = 1
+    company_id = 1
+    study_id = 1
+    cost_id = 1
+    cost_payment_id = 1
+    advance_id = 1
+    indemnity_id = 1
+    bill_id = 1
 
     # Create students
-    for _ in range(randint(20, 50)):
+    for _ in range(randint(20, 40)):
         students.append(Student(student_id, fake.last_name(), fake.date(pattern="%d/%m"), fake.street_address(),
                                 randint(1, 2) * 1000000000000 + randint(10, 90) * 10000000000 +
                                 randint(1000000000, 9999999999)))
         student_id += 1
 
     # Create companies
-    for _ in range(randint(5, 15)):
+    for _ in range(randint(5, 10)):
         companies.append(Company(company_id, fake.word(), fake.street_address(), randint(600000000, 799999999)))
         company_id += 1
 
     # Create studies
-    for _ in range(randint(5, 20)):
+    for _ in range(randint(5, 15)):
         studies.append(
-            Study(study_id, fake.word(), fake.date(pattern="%d/%m"), randint(1, 6), randint(100, 400), randint(10, 50),
+            Study(study_id, fake.word(), fake.date(pattern="%d/%m"), randint(1, 6), randint(350, 1_000), randint(10, 50),
                   float(randint(10, 30)) / 100.0))
         study_id += 1
 

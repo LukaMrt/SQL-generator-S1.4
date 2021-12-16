@@ -10,5 +10,5 @@ class Indemnity:
         self.date = Date(date.day, date.month, date.year)
 
     def to_sql(self) -> str:
-        return "INSERT INTO INDEMNITES VALUES ({}, {}, {}, {});" \
-            .format(self.id, self.study, self.student, self.date.to_sql())
+        return "INSERT INTO INDEMNITES (NUMERO_CONVENTION, NUMERO_ETUDIANT, DATE_VERSEMENT) VALUES ({}, {}, {});" \
+            .format(self.study, self.student, self.date.to_sql())

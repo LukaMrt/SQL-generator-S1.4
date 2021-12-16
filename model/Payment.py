@@ -8,5 +8,5 @@ class Payment:
         self.date = Date(1, date.month, date.year)
 
     def to_sql(self) -> str:
-        return "INSERT INTO REMBOURSEMENT_FRAIS VALUES ({}, {});" \
-            .format(self.id, self.date.to_sql())
+        return "INSERT INTO REMBOURSEMENT_FRAIS (DATE_REMBOURSEMENT_FRAIS) VALUES ({});" \
+            .format(self.date.to_sql())

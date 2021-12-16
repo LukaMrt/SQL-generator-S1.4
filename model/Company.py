@@ -15,7 +15,7 @@ class Company:
         phone //= 100
         self.phone = "0" + str(phone % 10) + "." + self.phone
 
-
     def to_sql(self) -> str:
-        return "INSERT INTO ENTREPRISE VALUES ({}, '{}', '{}', '{}');" \
-            .format(self.id, self.name, self.address, self.phone)
+        return "INSERT INTO ENTREPRISE (NOM_ENTREPRISE, ADRESSE_ENTREPRISE, TELEPHONE_ENTREPRISE) " \
+               " VALUES ('{}', '{}', '{}');" \
+            .format(self.name, self.address, self.phone)

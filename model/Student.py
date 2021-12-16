@@ -14,5 +14,7 @@ class Student:
         self.social_number = social_number
 
     def to_sql(self) -> str:
-        return "INSERT INTO ETUDIANT VALUES ({}, '{}', {}, '{}', '{}');" \
-            .format(self.id, self.name, self.birth.to_sql(), self.address, self.social_number)
+        return "INSERT INTO ETUDIANT" \
+               " (NOM_ETUDIANT, DATE_NAISSANCE_ETUDIANT, ADRESSE_ETUDIANT, NUMERO_SECURITE_SOCIALE) " \
+               "VALUES ('{}', {}, '{}', '{}');" \
+            .format(self.name, self.birth.to_sql(), self.address, self.social_number)
